@@ -1,114 +1,94 @@
-Overlapping Marker Spiderfier for Google Maps API v3
-====================================================
+Overlapping Marker Spiderfier,  Google Maps API v3 Library
+==========================================================
 
-**Ever noticed how, in [Google Earth](http://earth.google.com), marker
-pins that overlap each other spring apart gracefully when you click
-them, so you can pick the one you meant?**
+h1. This is a fork from @jawj  [Overlapping Marker Spiderfier for Google Maps API v3](https://github.com/jawj/OverlappingMarkerSpiderfier)
 
-**And ever noticed how, when using the [Google Maps
-API](http://code.google.com/apis/maps/documentation/javascript/), the
-same thing doesn’t happen?**
+** This fork preserves all functionalities. It's mostly original code converted the code from Coffee (for those of you that, like me, like to experiment with code and don't like to mess with coffee) with verbosity and namespace added to each object so it became clear what each part was doing.
+** The code wasd onverted to reflect jshint best practices
+** OverlappingMarkerSpiderifier is now loaded as part of the google.maps namespace, so instead of
 
-This code makes Google Maps API **version 3** map markers behave in that
-Google Earth way (minus the animation). Small numbers of markers (yes,
-up to 8) spiderfy into a circle. Larger numbers fan out into a more
-space-efficient spiral.
+```js
+var Spider= new OverlappingMarkerSpiderifier();
+```
 
-The compiled code has no dependencies beyond Google Maps. And it’s under
-3K when compiled out of
-[CoffeeScript](http://jashkenas.github.com/coffee-script/), minified
-with Google’s [Closure
-Compiler](http://code.google.com/closure/compiler/) and gzipped.
+it is called with
 
-I wrote it as part of the data download feature for
-[Mappiness](http://www.mappiness.org.uk/maps/).
+```js
+var Spider= new google.maps.OverlappingMarkerSpiderifier();
+```
 
-**There’s now also [a port for the Leaflet maps
-API](https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet.*)
-\
-h3. Doesn’t clustering solve this problem?
-\
-You may have seen the [marker clustering
-library](http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/docs/reference.html),
-which also helps deal with markers that are close together.
-\
-That might be what you want. However, it probably**isn’t\* what you want
-(or isn’t the only thing you want) if you have markers that could be in
-the exact same location, or close enough to overlap even at the maximum
-zoom level. In that case, clustering won’t help your users see and/or
-click on the marker they’re looking for.
+This way, if you're loading Google Maps with AMD such as [RequireJS](http://requirejs.org/) you don't need to white shims to get a return object. Just make sure you load it after Google Maps.
 
-(I’m told that the OverlappingMarkerSpiderfier also plays nice with
-clustering — i.e. once you get down to a zoom level where individual
-markers are shown, these markers then spiderfy happily — but I haven’t
-yet tried it myself).
+As per default funcionalities, the following is a brief C&P from @jawj  [Overlapping Marker Spiderfier for Google Maps API v3](https://github.com/jawj/OverlappingMarkerSpiderfier)
+
+
+Ever noticed how, in [Google Earth](http://earth.google.com), marker pins that overlap each other spring apart gracefully when you click them, so you can pick the one you meant? This code makes Google Maps API **version 3** map markers behave in that way (minus the animation). This extension can accomodate numberless markers in an expanding spiral so they don't overlap.
+
+The compiled code has no dependencies beyond Google Maps. And it’s under 3K when compiled out of
+[CoffeeScript](http://jashkenas.github.com/coffee-script/), minified with Google’s [Closure Compiler](http://code.google.com/closure/compiler/) and gzipped.
+
+I wrote it as part of the data download feature for [Mappiness](http://www.mappiness.org.uk/maps/).
+
+**There’s now also [a port for the Leaflet maps API](https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet)
+
 
 Demo
 ----
 
-See the [demo
-map](http://jawj.github.com/OverlappingMarkerSpiderfier/demo.html) (the
-data is random: reload the map to reposition the markers).
+See the [demo map](http://jawj.github.com/OverlappingMarkerSpiderfier/demo.html) (the data is random: reload the map to reposition the markers).
 
 Download
 --------
 
-Download [the compiled, minified JS
-source](http://jawj.github.com/OverlappingMarkerSpiderfier/bin/oms.min.js).
-
-**Please note: version 0.3 introduces a breaking change. The
-`willSpiderfy(marker)` and `markersThatWillAndWontSpiderfy()` methods
-have been replaced with the `markersNearMarker(marker)` and
-`markersNearAnyOtherMarker()` methods.**
+Download [the compiled, minified JS source](http://jawj.github.com/OverlappingMarkerSpiderfier/bin/oms.min.js).
 
 How to use
 ----------
 
-See the [demo map
-source](https://github.com/jawj/OverlappingMarkerSpiderfier/blob/gh-pages/demo.html),
+See the [demo map source](https://github.com/jawj/OverlappingMarkerSpiderfier/blob/gh-pages/demo.html),
 or follow along here for a slightly simpler usage with commentary.
 
 Create your map like normal:
 
-    var gm = google.maps;
-    var map = new gm.Map(document.getElementById('map_canvas'), {
-      mapTypeId: gm.MapTypeId.SATELLITE,
-      center: new gm.LatLng(50, 0), 
+```sh
+     var map = new google.maps.Map(document.getElementById('map_canvas'), {
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
+      center: new google.maps.LatLng(50, 0), 
       zoom: 6
     });
 
-Create an `OverlappingMarkerSpiderfier` instance:
+    var oms = new google.maps.OverlappingMarkerSpiderfier(map);
+```
 
-    var oms = new OverlappingMarkerSpiderfier(map);
 
-Instead of adding click listeners to your markers directly via
-`google.maps.event.addListener`, add a global listener on the
-`OverlappingMarkerSpiderfier` instance instead. The listener will be
-passed the clicked marker as its first argument, and the Google Maps
-`event` object as its second.
+Instead of adding click listeners to your markers directly via `google.maps.event.addListener`, add a global listener on the `OverlappingMarkerSpiderfier` instance instead. The listener will be passed the clicked marker as its first argument, and the Google Maps `event` object as its second.
 
-    var iw = new gm.InfoWindow();
+
+```js
+    var iw = new google.maps.InfoWindow();
     oms.addListener('click', function(marker, event) {
       iw.setContent(marker.desc);
       iw.open(map, marker);
     });
+```
 
-You can also add listeners on the `spiderfy` and `unspiderfy` events,
-which will be passed an array of the markers affected. In this example,
-we observe only the `spiderfy` event, using it to close any open
-`InfoWindow`:
 
+You can also add listeners on the `spiderfy` and `unspiderfy` events, which will be passed an array of the markers affected. In this example, we observe only the `spiderfy` event, using it to close any open `InfoWindow`:
+
+```sh
     oms.addListener('spiderfy', function(markers) {
       iw.close();
     });
+```
 
-Finally, tell the `OverlappingMarkerSpiderfier` instance about each
-marker as you add it, using the `addMarker` method:
 
+Finally, tell the `OverlappingMarkerSpiderfier` instance about each marker as you add it, using the `addMarker` method:
+
+```sh
     for (var i = 0; i < window.mapData.length; i ++) {
       var datum = window.mapData[i];
-      var loc = new gm.LatLng(datum.lat, datum.lon);
-      var marker = new gm.Marker({
+      var loc = new google.maps.LatLng(datum.lat, datum.lon);
+      var marker = new google.maps.Marker({
         position: loc,
         title: datum.h,
         map: map
@@ -116,23 +96,18 @@ marker as you add it, using the `addMarker` method:
       marker.desc = datum.d;
       oms.addMarker(marker);  // <-- here
     }
+```
+
 
 Docs
 ----
 
-### Loading
+### Construction && Options
 
-The `google.maps` object must be available when this code runs — i.e.
-put the Google Maps API &lt;script&gt; tag before this one.
 
-The Google Maps API code changes frequently. Some earlier versions had
-broken support for z-indices, and the ‘frozen’ versions appear not to be
-as frozen as you’d like. At this moment, the ‘stable’ version 3.7 seems
-to work well, but do test with whatever version you fix on.
-
-### Construction
-
-    new OverlappingMarkerSpiderfier(map, options)
+```sh
+    new google.maps.OverlappingMarkerSpiderfier(map, options)
+```
 
 Creates an instance associated with `map` (a `google.maps.Map`).
 
@@ -141,19 +116,13 @@ you want changed from their defaults. The available options are:
 
 **markersWontMove** and **markersWontHide** (defaults: `false`)
 
-By default, change events for each added marker’s `position` and
-`visibility` are observed (so that, if a spiderfied marker is moved or
-hidden, all spiderfied markers are unspiderfied, and the new position is
-respected where applicable).
+By default, change events for each added marker’s `position` and `visibility` are observed (so that, if a spiderfied marker is moved or hidden, all spiderfied markers are unspiderfied, and the new position is respected where applicable).
 
-However, if you know that you won’t be moving and/or hiding any of the
-markers you add to this instance, you can save memory (a closure per
-marker in each case) by setting the options named `markersWontMove`
-and/or `markersWontHide` to `true` (or anything
-[truthy](http://isolani.co.uk/blog/javascript/TruthyFalsyAndTypeCasting)).
+However, if you know that you won’t be moving and/or hiding any of the markers you add to this instance, you can save memory (a closure per marker in each case) by setting the options named `markersWontMove` and/or `markersWontHide` to `true` (or anything [truthy](http://isolani.co.uk/blog/javascript/TruthyFalsyAndTypeCasting)).
 
 For example,
-`var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});`.
+
+`var oms = new google.mapsOverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});`.
 
 **keepSpiderfied** (default: `false`)
 
