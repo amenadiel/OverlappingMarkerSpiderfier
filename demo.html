@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <title>Overlapping Marker Spiderfier demo</title>
+  <title>Google Maps API v3 Marker Spiderfier demo</title>
   <style>
     html { height: auto; }
     body { height: auto; margin: 0; padding: 0; font-family: Georgia, serif; font-size: 0.9em; }
@@ -13,17 +13,17 @@
     @media print { #map_canvas { height: 950px; } }
   </style>
   <script src="http://maps.google.com/maps/api/js?v=3.9&amp;sensor=false"></script>
-  <script src="bin/oms.min.js"></script>
+  <script src="js/oms.js"></script>
   <script>
     window.onload = function() {
       var gm = google.maps;
-      var map = new gm.Map(document.getElementById('map_canvas'), {
-        mapTypeId: gm.MapTypeId.SATELLITE,
-        center: new gm.LatLng(50, 0), zoom: 6,  // whatevs: fitBounds will override
+      var map = new  google.maps.Map(document.getElementById('map_canvas'), {
+        mapTypeId:  google.maps.MapTypeId.SATELLITE,
+        center: new  google.maps.LatLng(50, 0), zoom: 6,  // whatevs: fitBounds will override
         scrollwheel: false
       });
-      var iw = new gm.InfoWindow();
-      var oms = new OverlappingMarkerSpiderfier(map,
+      var iw = new  google.maps.InfoWindow();
+      var oms = new  google.mapsOverlappingMarkerSpiderfier(map,
         {markersWontMove: true, markersWontHide: true});
 
       var usualColor = 'eebb22';
@@ -32,7 +32,7 @@
         return 'http://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|+|' +
           color + '|000000|ffff00';
       }
-      var shadow = new gm.MarkerImage(
+      var shadow = new  google.maps.MarkerImage(
         'https://www.google.com/intl/en_ALL/mapfiles/shadow50.png',
         new gm.Size(37, 34),  // size   - for sprite clipping
         new gm.Point(0, 0),   // origin - ditto
