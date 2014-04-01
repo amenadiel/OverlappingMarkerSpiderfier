@@ -40,9 +40,9 @@ See the [demo map](http://amenadiel.github.io/google-maps-api-markerspiderifier/
 
 ### How to use
 
-Download [the JS source](http://amenadiel.github.com/google-maps-api-markerspiderifier/lib/oms.js).
+Download [the JS source](https://raw.githubusercontent.com/amenadiel/google-maps-api-markerspiderifier/master/lib/oms.js).
 
-See the [demo map source](https://github.com/jamenadiel/google-maps-api-markerspiderifier/blob/gh-pages/demo.html),
+See the [demo map source](https://raw.githubusercontent.com/amenadiel/google-maps-api-markerspiderifier/gh-pages/demo.html),
 or follow along here for a slightly simpler usage with commentary.
 
 Create your map like normal:
