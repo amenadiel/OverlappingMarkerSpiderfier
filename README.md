@@ -1,5 +1,5 @@
-Overlapping Marker Spiderfier,  Google Maps API v3 Library
-==========================================================
+Google Maps API v3 Marker Spiderfier
+====================================
 
 **This is a fork from @jawj  [Overlapping Marker Spiderfier for Google Maps API v3](https://github.com/jawj/OverlappingMarkerSpiderfier)**
 
@@ -34,15 +34,15 @@ I wrote it as part of the data download feature for [Mappiness](http://www.mappi
 
 ### Demo
 
-See the [demo map](http://jawj.github.com/OverlappingMarkerSpiderfier/demo.html) (the data is random: reload the map to reposition the markers).
+See the [demo map](http://amenadiel.github.io/google-maps-api-markerspiderifier/demo.html) (the data is random: reload the map to reposition the markers).
 
 
 
 ### How to use
 
-Download [the JS source](http://amenadiel.github.com/OverlappingMarkerSpiderfier/lib/oms.js).
+Download [the JS source](http://amenadiel.github.com/google-maps-api-markerspiderifier/lib/oms.js).
 
-See the [demo map source](https://github.com/jawj/OverlappingMarkerSpiderfier/blob/gh-pages/demo.html),
+See the [demo map source](https://github.com/jamenadiel/google-maps-api-markerspiderifier/blob/gh-pages/demo.html),
 or follow along here for a slightly simpler usage with commentary.
 
 Create your map like normal:
