@@ -17,7 +17,7 @@ it is instanced with
 var Spider= new google.maps.OverlappingMarkerSpiderifier();
 ```
 
-This way, if you're loading Google Maps with AMD such as [RequireJS](http://requirejs.org/) you don't need to white shims to get a return object. Just make sure you load it after Google Maps.
+This way, if you're loading Google Maps with AMD such as [RequireJS](http://requirejs.org/) you don't need shims to get a return object. Just make sure you load it after Google Maps.
 
 As per default funcionalities, the following is a brief C&P from @jawj  [Overlapping Marker Spiderfier for Google Maps API v3](https://github.com/jawj/OverlappingMarkerSpiderfier)
 
